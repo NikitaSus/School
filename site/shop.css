@@ -45,6 +45,7 @@ body {
 .promo__title {
     font-size: 130px;
     color: white;
+    white-space: nowrap; /* Предотвращает перенос текста */
 }
 
 .promo__subtitle {
@@ -127,23 +128,91 @@ body {
     font-size: 1rem; /* Адаптивный размер текста */
 }
 
+/* Адаптивные стили для экранов от 767 до 1261 пикселей */
+@media (max-width: 1261px) and (min-width: 767px) {
+    .header {
+        padding: 15px; /* Уменьшаем отступы */
+    }
+
+    .header__nav {
+        margin-right: 20px; /* Уменьшаем отступы */
+    }
+
+    .promo {
+        flex-direction: column;
+        align-items: center;
+        padding: 30px; /* Уменьшаем отступы */
+    }
+
+    .promo__title {
+        font-size: 80px; /* Уменьшаем размер шрифта для заголовка */
+    }
+
+    .promo__subtitle {
+        font-size: 20px; /* Уменьшаем размер шрифта для подзаголовка */
+    }
+
+    .promo__button {
+        padding: 10px 20px; /* Уменьшаем отступы для кнопки */
+        font-size: 16px; /* Уменьшаем размер шрифта для кнопки */
+    }
+
+    .products__title {
+        font-size: 28px; /* Уменьшаем размер заголовка раздела продуктов */
+    }
+
+    .products__grid {
+        flex-direction: column; /* Ставим товары в один столбик */
+        align-items: center;
+    }
+
+    .product {
+        margin-bottom: 30px; /* Отступы между товарами */
+    }
+
+    .product__name {
+        font-size: 16px; /* Уменьшаем размер шрифта для названия товара */
+    }
+
+    .product__button {
+        padding: 8px 15px; /* Уменьшаем отступы для кнопки товара */
+        font-size: 14px; /* Уменьшаем размер шрифта для кнопки товара */
+    }
+
+    .footer {
+        padding: 15px; /* Уменьшаем отступы */
+    }
+
+    .footer__links a {
+        font-size: 0.9rem; /* Уменьшаем размер шрифта для ссылок в футере */
+    }
+}
+
 @media (max-width: 768px) {
     .promo {
         flex-direction: column;
         align-items: center;
-    }
-
-    .promo__title {
-        font-size: 50px;
-    }
-
-    .promo__button{
-        max-width: 100%;
+        text-align: center; /* Центрируем весь контент */
     }
 
     .promo__content {
         max-width: 100%;
         text-align: center;
+        align-items: center; /* Центрируем содержимое */
+        display: flex;
+        flex-direction: column;
+    }
+
+    .promo__title {
+        font-size: 70px; /* Уменьшаем размер текста для мобильных устройств */
+        line-height: 1.2; /* Подбираем удобный межстрочный интервал */
+        margin-bottom: 20px; /* Добавляем отступ для разделения с кнопкой */
+    }
+
+    .promo__button {
+        width: auto; /* Отменяем фиксированную ширину для адаптивности */
+        padding: 15px 30px; /* Увеличиваем padding для приятного внешнего вида */
+        max-width: 100%; /* Убираем ограничение ширины */
     }
 
     .products__grid {
@@ -154,13 +223,6 @@ body {
     .product {
         margin-bottom: 40px;
     }
-
-    .footer {
-        flex-direction: column; /* Вертикальная ориентация при узком экране */
-        text-align: center;
-    }
-
-    .footer a {
-        margin: 10px 0; 
-    }
 }
+
+
