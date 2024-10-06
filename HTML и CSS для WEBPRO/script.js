@@ -55,7 +55,7 @@ function endGame() {
   const resultDisplay = document.getElementById('result');
   
   startButton.style.display = 'inline-block';
-  gameDiv.style.display = 'none';
+  gameDiv.style.display = 'inline-block';
   timeHeader.style.display = 'none';
 
   // Удаляем квадрат, если он существует
@@ -80,16 +80,51 @@ function createRect(gameDiv) {
   // Создаем новый квадрат
   const square = document.createElement('div');
   square.classList.add('square'); // Добавляем класс для идентификации
-  square.style.width = '100px';
-  square.style.height = '100px';
-  square.style.backgroundColor = 'blue';
+
+  // Определяем размеры квадрата со случаныйм размером от 50 до 150 px
+  const randomSize = Math.random() * 100 + 50; 
+  square.style.width = `${randomSize}px`;
+  square.style.height = `${randomSize}px`;
+
+  // Функция для генерации случайного цвета
+  function getRandomColor() {
+    let color;
+    do {
+      color = '#' + Math.floor(Math.random() * 16777215).toString(16);
+      while (color.length < 7) {
+        color += '0'; // Заполняем недостающие символы в HEX
+      }
+
+      // Если цвет совпадает с #cccccc или цветом фона, сразу создаем новый квадрат
+      if (color === "#cccccc" || color === getComputedStyle(gameDiv).backgroundColor) {
+        console.log("Цвет совпал с фоном, создаем новый квадрат.");
+        createRect(gameDiv);  // Перезапускаем создание квадрата
+        return;  // Завершаем текущую функцию, чтобы избежать двойного создания
+      }
+    } while (color === "#ffffff");  // Убедимся, что цвет не белый
+
+    return color;  // Возвращаем корректный цвет
+  }
+
+  // Применяем случайный цвет
+  const randomColor = getRandomColor();
+  square.style.backgroundColor = randomColor;
+
   square.style.position = 'absolute';
 
   // Генерация случайной позиции для квадрата внутри блока gameDiv
-  const maxWidth = gameDiv.clientWidth - 100; // Вычитание ширины квадрата
-  const maxHeight = gameDiv.clientHeight - 100; // Вычитание высоты квадрата
-  const randomX = Math.random() * maxWidth; // Случайная координата X
-  const randomY = Math.random() * maxHeight; // Случайная координата Y
+  const maxWidth = gameDiv.clientWidth - randomSize; // Вычитание случайной ширины квадрата
+  const maxHeight = gameDiv.clientHeight - randomSize; // Вычитание случайной высоты квадрата
+  let randomX = Math.random() * maxWidth; // Случайная координата X
+  let randomY = Math.random() * maxHeight; // Случайная координата Y
+
+  // Проверка чтобы квадрат не выходил за пределы поля
+  if (randomX + randomSize > gameDiv.clientWidth) {
+    randomX = gameDiv.clientWidth - randomSize;
+  }
+  if (randomY + randomSize > gameDiv.clientHeight) {
+    randomY = gameDiv.clientHeight - randomSize;
+  }
 
   square.style.left = `${randomX}px`;
   square.style.top = `${randomY}px`;
